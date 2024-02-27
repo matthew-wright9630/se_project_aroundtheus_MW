@@ -8,13 +8,13 @@
   margin-bottom: 41px;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 936px) {
   .header {
     padding-top: 36px;
   }
 }
 
-@media screen and (max-width: 637px) {
+@media screen and (max-width: 620px) {
   .header {
     padding-top: 28px;
     padding-left: 19px;

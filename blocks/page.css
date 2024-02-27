@@ -1,6 +1,4 @@
 .page {
-  max-width: 1280px;
-  /* height: 1216px; */
   background-color: #000;
   color: #fff;
   margin: 0;
@@ -15,16 +13,4 @@
   margin: 0 auto;
   max-width: 882px;
   box-sizing: border-box;
-}
-
-/* @media screen and (max-width: 800px) {
-  .page {
-    max-width: 800px;
-  }
-} */
-
-@media screen and (max-width: 618px) {
-  .page__content {
-    margin: 0 19px;
-  }
 }
