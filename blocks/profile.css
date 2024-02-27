@@ -1,0 +1,115 @@
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 51px;
+}
+
+.profile__picture {
+  width: 120px;
+  height: 120px;
+  /* margin-right: 15px; */
+}
+
+.profile__info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: 30px;
+  margin-right: auto;
+  height: 77px;
+  flex-shrink: 2;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  gap: 5%;
+}
+
+.profile__name {
+  max-width: 375px;
+  font-family: "inter";
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 1.2;
+  margin: 0;
+  max-width: 373px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.profile__edit-button {
+  width: 24px;
+  height: 24px;
+  background: url(../images/edit-button.png);
+  background-size: 10px 10px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: solid #fff 1px;
+}
+
+.profile__description {
+  font-family: "inter";
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.2;
+  margin: 0;
+  max-width: 373px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.profile__add-button {
+  background: url(../images/plus-button.svg);
+  background-repeat: no-repeat;
+  background-size: 22px 22px;
+  border: solid 2px #fff;
+  background-position: center;
+  width: 150px;
+  height: 50px;
+  transition: 0.5s linear;
+  padding: 0;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 900px) {
+  .profile__name {
+    font-size: 30px;
+    max-width: 250px;
+  }
+
+  .profile__description {
+    font-size: 16px;
+    max-width: 250px;
+  }
+}
+
+@media screen and (max-width: 637px) {
+  .profile {
+    flex-direction: column;
+  }
+
+  .profile__info {
+    margin: 30px auto 36px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile__name {
+    font-size: 22px;
+  }
+
+  .profile__description {
+    font-size: 14px;
+  }
+
+  .profile__add-button {
+    background-size: 16px 16px;
+    width: 90%;
+  }
+}
