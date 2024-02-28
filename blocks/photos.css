@@ -4,6 +4,7 @@
 .photos__list {
   display: grid;
   grid-template-columns: repeat(auto-fit, 282px);
+  grid-auto-rows: 361px;
   justify-content: center;
   grid-column-gap: 17px;
   grid-row-gap: 20px;
@@ -16,7 +17,6 @@
   border-radius: 5%;
   list-style-type: none;
   width: 282px;
-  height: 361px;
 }
 
 .photos__image {
@@ -36,7 +36,7 @@
   color: #000;
   margin: 0;
   margin-left: 20px;
-  font-family: "Inter";
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   font-weight: 900;
   font-size: 24px;
   line-height: 1.2;
@@ -60,4 +60,5 @@
 
 .photos__like-button:hover {
   opacity: 0.5;
+  cursor: pointer;
 }

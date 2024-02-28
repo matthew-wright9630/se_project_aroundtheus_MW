@@ -14,3 +14,9 @@
   max-width: 882px;
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 620px) {
+  .page__content {
+    margin: 0;
+  }
+}
