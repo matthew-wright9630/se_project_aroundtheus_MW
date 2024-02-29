@@ -4,7 +4,7 @@
 .photos__list {
   display: grid;
   grid-template-columns: repeat(auto-fit, 282px);
-  grid-auto-rows: repeat(auto-fit, 361px);
+  grid-auto-rows: 361px;
   justify-content: center;
   grid-column-gap: 17px;
   grid-row-gap: 20px;
