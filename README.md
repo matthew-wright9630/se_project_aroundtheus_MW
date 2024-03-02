@@ -27,3 +27,9 @@ Currently the buttons do not change anything when they are clicked. I want to up
 There is no way to delete photos currently, which would be nice for users to be able to do.
 Additionally, photos should be able to be rearranged. I would like to add that functionality without needing to delete and reupload images.
 A possible update for users in the future would be to hide the "photo description" by clicking on the photo. Reclicking the photo could display the description again.
+
+## Link to project and videos
+
+https://matthew-wright9630.github.io/se_project_aroundtheus_MW/
+
+https://drive.google.com/file/d/1rUujqEdBnr46AVUkdsjXCZjEBkOzdL2C/view?usp=sharing

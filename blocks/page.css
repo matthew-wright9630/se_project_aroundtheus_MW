@@ -5,14 +5,14 @@
   padding: 0;
 }
 
-.page_section {
+.page__content {
+  margin: 0 20px;
+}
+
+.page__section {
   margin: 0 auto;
   max-width: 882px;
   box-sizing: border-box;
-}
-
-.page__content {
-  margin: 0 20px;
 }
 
 @media screen and (max-width: 620px) {
