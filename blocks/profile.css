@@ -72,7 +72,7 @@
   width: 150px;
   height: 50px;
   transition: 0.5s linear;
-  border-radius: 4px;
+  border-radius: 2px;
   padding: 0;
 }
 
@@ -108,6 +108,7 @@
 
   .profile__name {
     font-size: 22px;
+    line-height: 30px;
   }
 
   .profile__edit-button {
@@ -117,10 +118,12 @@
 
   .profile__description {
     font-size: 14px;
+    margin-top: 14px;
+    line-height: 17px;
   }
 
   .profile__add-button {
     background-size: 16px 16px;
-    width: 95%;
+    width: 88.15%;
   }
 }
