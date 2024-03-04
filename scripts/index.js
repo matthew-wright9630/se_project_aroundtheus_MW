@@ -1,3 +1,5 @@
+let initialCards = [goatPicture, snowyPicture, coastPicture, starPicture, mountainPicutre, underseaPicture];
+
 let goatPicture = {
   name: goat,
   link: URL(
@@ -32,4 +34,3 @@ let underseaPicture = {
     link: URL("https://unsplash.com/photos/a-large-group-of-fish-swimming-over-a-coral-reef-bOMVTvE2QFU"),
 }
 
-let initialCards = [goatPicture, snowyPicture, coastPicture, starPicture, mountainPicutre, underseaPicture];
