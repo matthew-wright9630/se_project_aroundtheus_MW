@@ -1,4 +1,4 @@
-let initialCards = [goatPicture, snowyPicture, coastPicture, starPicture, mountainPicutre, underseaPicture];
+let initialCards = [];
 
 let goatPicture = {
   name: goat,
@@ -34,3 +34,9 @@ let underseaPicture = {
     link: URL("https://unsplash.com/photos/a-large-group-of-fish-swimming-over-a-coral-reef-bOMVTvE2QFU"),
 }
 
+initialCards[0] = goatPicture;
+initialCards[1] = snowyPicture;
+initialCards[2] = coastPicture;
+initialCards[3] = starPicture;
+initialCards[4] = mountainPicutre;
+initialCards[5] = underseaPicture;
