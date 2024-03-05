@@ -53,7 +53,11 @@
               />
               <div class="photos__description">
                 <h2 class="photos__caption">Yosemite Valley</h2>
-                <button type="button" aria-label="Like button" class="photos__like-button"></button>
+                <button
+                  type="button"
+                  aria-label="Like button"
+                  class="photos__like-button"
+                ></button>
               </div>
             </li>
             <li class="photos__card">
@@ -64,7 +68,11 @@
               />
               <div class="photos__description">
                 <h2 class="photos__caption">Lake Louise</h2>
-                <button type="button" aria-label="Like button" class="photos__like-button"></button>
+                <button
+                  type="button"
+                  aria-label="Like button"
+                  class="photos__like-button"
+                ></button>
               </div>
             </li>
             <li class="photos__card">
@@ -75,7 +83,11 @@
               />
               <div class="photos__description">
                 <h2 class="photos__caption">Bald Mountains</h2>
-                <button type="button" aria-label="Like button" class="photos__like-button"></button>
+                <button
+                  type="button"
+                  aria-label="Like button"
+                  class="photos__like-button"
+                ></button>
               </div>
             </li>
             <li class="photos__card">
@@ -86,7 +98,11 @@
               />
               <div class="photos__description">
                 <h2 class="photos__caption">Latemar</h2>
-                <button type="button" aria-label="Like button" class="photos__like-button"></button>
+                <button
+                  type="button"
+                  aria-label="Like button"
+                  class="photos__like-button"
+                ></button>
               </div>
             </li>
             <li class="photos__card">
@@ -97,7 +113,11 @@
               />
               <div class="photos__description">
                 <h2 class="photos__caption">Vanoise National Park</h2>
-                <button type="button" aria-label="Like button" class="photos__like-button"></button>
+                <button
+                  type="button"
+                  aria-label="Like button"
+                  class="photos__like-button"
+                ></button>
               </div>
             </li>
             <li class="photos__card">
@@ -108,7 +128,11 @@
               />
               <div class="photos__description">
                 <h2 class="photos__caption">Lago di Braies</h2>
-                <button type="button" aria-label="Like button" class="photos__like-button"></button>
+                <button
+                  type="button"
+                  aria-label="Like button"
+                  class="photos__like-button"
+                ></button>
               </div>
             </li>
           </ul>
@@ -117,6 +141,33 @@
       <footer class="footer page__section">
         <p class="footer__copyright">&#169; 2024 Around The U.S.</p>
       </footer>
+      <div class="modal modal_opened">
+        <form class="modal__container">
+          <h2 class="modal__title">Edit profile</h2>
+
+          <fieldset class="modal__fieldset">
+            <label for="profile-name" class="modal__label"></label>
+            <input
+              type="text"
+              class="modal__input"
+              id="profile-name"
+              name="profileName"
+              placeholder="Name"
+            />
+            <label for="profile-description" class="modal__label"></label>
+            <input
+              type="text"
+              class="modal__input"
+              id="profile-description"
+              name="profileDescription"
+              placeholder="Description"
+            />
+
+            <button class="modal__submit-button">Save</button>
+          </fieldset>
+          <button class="modal__close-button"></button>
+        </form>
+      </div>
     </div>
     <script src="./scripts/index.js"></script>
   </body>
