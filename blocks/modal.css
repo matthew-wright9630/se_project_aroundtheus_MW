@@ -76,6 +76,11 @@
   height: 50px;
   margin: calc(48px - 30px) auto 0;
   font-size: 18px;
+  transition: 0.5s;
+}
+
+.modal__submit-button:hover {
+  opacity: 0.8;
 }
 
 .modal__close-button {
@@ -88,6 +93,11 @@
   top: -48px;
   right: -48px;
   padding: 0;
+  transition: 0.5s;
+}
+
+.modal__close-button:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 620px) {
