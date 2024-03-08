@@ -1,33 +1,33 @@
 const initialCards = [
   {
-    name: "goatPicture",
+    name: "Goat in a field",
     alt: "Picture of a goat",
-    link: "https://unsplash.com/photos/a-ram-standing-on-top-of-a-large-rock-G8_JBLFMWTg",
+    link: "https://images.pexels.com/photos/2414459/pexels-photo-2414459.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
-    name: "snowyPicture",
-    alt: "Picture of snow",
-    link: "https://unsplash.com/photos/a-black-and-white-photo-of-water-and-rocks-raJ-tYfylhU",
+    name: "Snowy landscape",
+    alt: "Picture of a snowy landscape",
+    link: "https://images.unsplash.com/photo-1709403336601-c694b02d04ec?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    name: "coastLinePicture",
-    alt: "Picture of a coatline",
-    link: "https://unsplash.com/photos/an-aerial-view-of-a-body-of-water-D1jr0Mevs-c",
+    name: "Coastline ",
+    alt: "Picture of a Coastline",
+    link: "https://images.unsplash.com/photo-1707343843982-f8275f3994c5?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    name: "staryPicture",
-    alt: "Picture of the stars",
-    link: "https://unsplash.com/photos/two-very-large-objects-in-the-sky-with-stars-ZsJuNhJSiR4",
+    name: "Galaxy of stars",
+    alt: "Picture of stars",
+    link: "https://images.unsplash.com/photo-1709403338527-8229912b3a67?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    name: "mountainPicture",
-    alt: "Picture of a mountain",
-    link: "https://unsplash.com/photos/a-lone-tree-in-the-middle-of-a-desert-n70vrh_E0Ss",
+    name: "Mount Everest",
+    alt: "Picture of a Mount Everest",
+    link: "https://images.unsplash.com/photo-1575819719798-83d97dd6949c?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    name: "underseaPicture",
+    name: "School of fish",
     alt: "Picture of fish under the sea",
-    link: "https://unsplash.com/photos/a-large-group-of-fish-swimming-over-a-coral-reef-bOMVTvE2QFU",
+    link: "https://images.unsplash.com/photo-1707327956851-30a531b70cda?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
 
@@ -48,7 +48,7 @@ const profileFormElement = document.querySelector("#profile-edit-modal");
 
 //Elements used for photos templates
 const photoCardTemplate = document.querySelector("#photos-template").content;
-const photoCardList = document.querySelector("photos__list");
+const photoCardList = document.querySelector(".photos__list");
 
 /* Event Listeners */
 //Event Listeners for opening and closing the edit profile modal
@@ -79,39 +79,20 @@ function handleProfileFormSubmit(evt) {
 }
 
 function getCardElement(data) {
-  for (let i = 0; i < data.length; i++) {
-    const cardElement = photoCardTemplate.cloneNode(true);
-    const cardDescriptionEl = cardElement.querySelector(".photos__caption");
-    const cardImageLinkEl = cardElement.querySelector(".photos__image");
-    cardDescriptionEl.textContent = data[i].name;
-    cardImageLinkEl.textContent = data[i].link;
+  const cardElement = photoCardTemplate.cloneNode(true);
+  const cardDescriptionEl = cardElement.querySelector(".photos__caption");
+  const cardImageLinkEl = cardElement.querySelector(".photos__image");
+  const cardAltText = cardElement.querySelector(".photos__image");
+  cardDescriptionEl.textContent = data.name;
+  cardImageLinkEl.src = data.link;
+  cardAltText.alt = data.alt;
 
-    photoCardList.append(cardElement); 
-  }
+  console.log(cardDescriptionEl.textContent);
+  console.log(cardElement.src);
+
+  photoCardList.append(cardElement);
 }
 
-getCardElement(initialCards);
-
-/* This will use the event listener without a callback. Or at least, it does not call a function elsewhere at least.
-profileEditButton.addEventListener("click", () => {
-  profileEditModal.classList.add("modal_opened");
-  event.preventDefault();
-});
-profileEditModal.addEventListener("click", () => {
-  profileEditModal.classList.remove("modal_opened");
-  console.log("hello");
-  event.preventDefault();
-});
-*/
-
-/*
-function showModalView() {
-  modalView.classList.add("modal_opened");
+for (let i = 0; i < initialCards.length; i++) {
+  getCardElement(initialCards[i]);
 }
-
-function closeModalView() {
-  modalView.classList.remove("modal_opened");
-  preventDefault();
-}
-
-console.log(initialCards);*/
