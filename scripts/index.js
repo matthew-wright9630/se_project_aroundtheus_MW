@@ -1,58 +1,35 @@
 const initialCards = [
   {
     name: "goatPicture",
+    alt: "Picture of a goat",
     link: "https://unsplash.com/photos/a-ram-standing-on-top-of-a-large-rock-G8_JBLFMWTg",
   },
   {
     name: "snowyPicture",
+    alt: "Picture of snow",
     link: "https://unsplash.com/photos/a-black-and-white-photo-of-water-and-rocks-raJ-tYfylhU",
   },
   {
     name: "coastLinePicture",
+    alt: "Picture of a coatline",
     link: "https://unsplash.com/photos/an-aerial-view-of-a-body-of-water-D1jr0Mevs-c",
   },
   {
     name: "staryPicture",
+    alt: "Picture of the stars",
     link: "https://unsplash.com/photos/two-very-large-objects-in-the-sky-with-stars-ZsJuNhJSiR4",
   },
   {
     name: "mountainPicture",
+    alt: "Picture of a mountain",
     link: "https://unsplash.com/photos/a-lone-tree-in-the-middle-of-a-desert-n70vrh_E0Ss",
   },
   {
     name: "underseaPicture",
+    alt: "Picture of fish under the sea",
     link: "https://unsplash.com/photos/a-large-group-of-fish-swimming-over-a-coral-reef-bOMVTvE2QFU",
   },
 ];
-
-/* 
- const profileFormElement = // Use the querySelector() method
-
-// find the form fields in the DOM
-const nameInput = // Use querySelector()
-const jobInput = // Use querySelector()
-
-// find the profile elements in the DOM
-const profileName = // Use querySelector()
-const profileJob = // Use querySelector()
-
-// the form submission handler. Note that its name 
-// starts with a verb and concisely describes what it does
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault(); 
- 
-  // get the values of each field from the value property 
-  // of the corresponding input element
-
-  // insert new values into the textContent property of the 
-  // corresponding profile elements
-}
-
-// connect the handler to the form:
-// it will watch the submit event
-formElement.addEventListener('submit', handleProfileFormSubmit);
-
-*/
 
 /* Elements */
 // Elements used to open and close the Edit Profile Modal
@@ -68,6 +45,10 @@ const inputProfileDescription = document.querySelector("#profile-description");
 
 //Elements used to submit the edit profile modal form
 const profileFormElement = document.querySelector("#profile-edit-modal");
+
+//Elements used for photos templates
+const photoCardTemplate = document.querySelector("#photos-template").content;
+const photoCardList = document.querySelector("photos__list");
 
 /* Event Listeners */
 //Event Listeners for opening and closing the edit profile modal
@@ -85,17 +66,31 @@ function displayEditProfileModal(event) {
   event.preventDefault();
 }
 
-function closeEditProfileModal() {
+function closeEditProfileModal(event) {
   profileEditModal.classList.remove("modal_opened");
-  //event.preventDefault();
+  event.preventDefault();
 }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = inputProfileName.value;
   profileDescription.textContent = inputProfileDescription.value;
-  closeEditProfileModal();
+  profileEditModal.classList.remove("modal_opened");
 }
+
+function getCardElement(data) {
+  for (let i = 0; i < data.length; i++) {
+    const cardElement = photoCardTemplate.cloneNode(true);
+    const cardDescriptionEl = cardElement.querySelector(".photos__caption");
+    const cardImageLinkEl = cardElement.querySelector(".photos__image");
+    cardDescriptionEl.textContent = data[i].name;
+    cardImageLinkEl.textContent = data[i].link;
+
+    photoCardList.append(cardElement); 
+  }
+}
+
+getCardElement(initialCards);
 
 /* This will use the event listener without a callback. Or at least, it does not call a function elsewhere at least.
 profileEditButton.addEventListener("click", () => {

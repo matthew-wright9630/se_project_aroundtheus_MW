@@ -45,6 +45,21 @@
         </section>
         <section class="photos page__section">
           <ul class="photos__list">
+            <template id="photos-template">
+              <li class="photos__card">
+                <img src="" alt="" class="photos__image" />
+                <div class="photos__description">
+                  <h2 class="photos__caption"></h2>
+                  <button
+                    type="button"
+                    aria-label="Like button"
+                    class="photos__like-button"
+                  ></button>
+                </div>
+              </li>
+            </template>
+          </ul>
+          <!-- <ul class="photos__list">
             <li class="photos__card">
               <img
                 src="./images/yosemite.jpg"
@@ -135,7 +150,7 @@
                 ></button>
               </div>
             </li>
-          </ul>
+          </ul> -->
         </section>
       </main>
       <footer class="footer page__section">
