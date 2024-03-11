@@ -44,7 +44,7 @@ const inputProfileName = document.querySelector("#profile-name");
 const inputProfileDescription = document.querySelector("#profile-description");
 
 //Elements used to submit the edit profile modal form
-const profileFormElement = document.querySelector("#profile-edit-modal");
+const profileFormElement = document.forms["profile-form"];
 
 //Elements used for photos templates
 const photoCardTemplate = document.querySelector("#photos-template").content;
@@ -59,37 +59,36 @@ profileEditCloseButton.addEventListener("click", closeEditProfileModal);
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 
 //Functions
-function displayEditProfileModal(event) {
+function displayEditProfileModal() {
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
   profileEditModal.classList.add("modal_opened");
-  event.preventDefault();
 }
 
-function closeEditProfileModal(event) {
+function closeEditProfileModal() {
   profileEditModal.classList.remove("modal_opened");
-  event.preventDefault();
 }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = inputProfileName.value;
   profileDescription.textContent = inputProfileDescription.value;
-  profileEditModal.classList.remove("modal_opened");
+  closeEditProfileModal();
+}
+
+function createCard(data) {
+  const cardElement = photoCardTemplate.cloneNode(true);
+  const cardDescription = cardElement.querySelector(".photos__caption");
+  const cardImage = cardElement.querySelector(".photos__image");
+  cardDescription.textContent = data.name;
+  cardImage.src = data.link;
+  cardImage.alt = data.alt;
+
+  return cardElement;
 }
 
 function getCardElement(data) {
-  const cardElement = photoCardTemplate.cloneNode(true);
-  const cardDescriptionEl = cardElement.querySelector(".photos__caption");
-  const cardImageLinkEl = cardElement.querySelector(".photos__image");
-  const cardAltText = cardElement.querySelector(".photos__image");
-  cardDescriptionEl.textContent = data.name;
-  cardImageLinkEl.src = data.link;
-  cardAltText.alt = data.alt;
-
-  console.log(cardDescriptionEl.textContent);
-  console.log(cardElement.src);
-
+  const cardElement = createCard(data);
   photoCardList.append(cardElement);
 }
 
