@@ -92,6 +92,6 @@ function getCardElement(data) {
   photoCardList.append(cardElement);
 }
 
-for (let i = 0; i < initialCards.length; i++) {
-  getCardElement(initialCards[i]);
-}
+initialCards.forEach(element => {
+  getCardElement(element);
+});
