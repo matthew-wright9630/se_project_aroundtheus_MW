@@ -93,17 +93,21 @@ function handleProfileFormSubmit(evt) {
 }
 
 function createCard(data) {
-  console.log(data);
   const cardElement = photoCardTemplate.cloneNode(true);
   const cardDescription = cardElement.querySelector(".photos__caption");
   const cardImage = cardElement.querySelector(".photos__image");
   const cardLikeButton = cardElement.querySelector(".photos__like-button");
+  const cardDeleteButton = cardElement.querySelector(".photos__delete-button");
+
   cardDescription.textContent = data.name;
   cardImage.src = data.link;
   cardImage.alt = data.alt;
- 
+
   cardLikeButton.addEventListener("click", () => {
     cardLikeButton.classList.toggle("photos__like-button_active");
+  });
+  cardDeleteButton.addEventListener("click", () => {
+    cardElement.remove();
   });
 
   console.log("point 5");
