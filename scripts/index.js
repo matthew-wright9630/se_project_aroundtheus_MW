@@ -32,10 +32,15 @@ const initialCards = [
 ];
 
 /* Elements */
-// Elements used to open and close the Edit Profile Modal
+// Elements used to open and close the Edit Profile Modal and Card Add Modal
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileEditCloseButton = document.querySelector(".modal__close-button");
+const profileAddCardButton = document.querySelector(".profile__add-button");
+const profileAddCardModal = document.querySelector("#card-add-modal");
+const profileAddCardCloseButton = document.querySelector(
+  "#close-add-card-modal"
+);
 
 //Elements used to display the current profile name and description in the edit profile modal
 const profileName = document.querySelector(".profile__name");
@@ -45,18 +50,28 @@ const inputProfileDescription = document.querySelector("#profile-description");
 
 //Elements used to submit the edit profile modal form
 const profileFormElement = document.forms["profile-form"];
+const profileAddCardFormElement = document.forms["card-add-form"];
 
 //Elements used for photos templates
 const photoCardTemplate = document.querySelector("#photos-template").content;
 const photoCardList = document.querySelector(".photos__list");
+
+//Elements used for adding cards
+const inputCardTitle = document.querySelector("#card-title");
+const inputCardLink = document.querySelector("#card-image-link");
 
 /* Event Listeners */
 //Event Listeners for opening and closing the edit profile modal
 profileEditButton.addEventListener("click", displayEditProfileModal);
 profileEditCloseButton.addEventListener("click", closeEditProfileModal);
 
+//Event Listeners for opening and closing the add card modal
+profileAddCardButton.addEventListener("click", displayCardAddModal);
+profileAddCardCloseButton.addEventListener("click", closeCardAddModal);
+
 //Event Listener for submiting the edit profile modal
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+profileAddCardFormElement.addEventListener("submit", handleCardFormSubmit);
 
 //Functions
 function displayEditProfileModal() {
@@ -71,27 +86,66 @@ function closeEditProfileModal() {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
+  console.log(inputProfileDescription.value);
   profileName.textContent = inputProfileName.value;
   profileDescription.textContent = inputProfileDescription.value;
   closeEditProfileModal();
 }
 
 function createCard(data) {
+  console.log(data);
   const cardElement = photoCardTemplate.cloneNode(true);
   const cardDescription = cardElement.querySelector(".photos__caption");
   const cardImage = cardElement.querySelector(".photos__image");
+  const cardLikeButton = cardElement.querySelector(".photos__like-button");
   cardDescription.textContent = data.name;
   cardImage.src = data.link;
   cardImage.alt = data.alt;
+ 
+  cardLikeButton.addEventListener("click", () => {
+    cardLikeButton.classList.toggle("photos__like-button_active");
+  });
 
+  console.log("point 5");
   return cardElement;
 }
 
 function getCardElement(data) {
   const cardElement = createCard(data);
-  photoCardList.append(cardElement);
+  return cardElement;
+  // photoCardList.append(cardElement);
 }
 
-initialCards.forEach(element => {
-  getCardElement(element);
+initialCards.forEach((element) => {
+  const cardElement = getCardElement(element);
+  photoCardList.append(cardElement);
 });
+
+function displayCardAddModal() {
+  profileAddCardModal.classList.add("modal_opened");
+}
+
+function closeCardAddModal() {
+  profileAddCardModal.classList.remove("modal_opened");
+}
+
+function handleCardFormSubmit(evt) {
+  evt.preventDefault();
+  const cardElement = getCardElement({
+    link: inputCardLink.value,
+    name: inputCardTitle.value,
+    alt: inputCardTitle.value,
+  });
+  closeCardAddModal();
+  photoCardList.prepend(cardElement);
+  console.log("point 3");
+}
+
+// const cardLikeButtons = document.querySelectorAll(".photos__like-button");
+// console.log(cardLikeButtons);
+
+// cardLikeButtons.forEach((likeButton) => {
+//   likeButton.addEventListener("click", () => {
+//     likeButton.classList.toggle("photos__like-button_active");
+//   });
+// });

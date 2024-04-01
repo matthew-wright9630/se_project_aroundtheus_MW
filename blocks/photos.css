@@ -52,7 +52,11 @@
   border: none;
   width: 21px;
   height: 18px;
-  transition: 0.5s linear;
+  transition: 0.2s linear;
+}
+
+.photos__like-button_active {
+  background: url(../images/like-symbol-liked.svg);
 }
 
 .photos__like-button:hover {
