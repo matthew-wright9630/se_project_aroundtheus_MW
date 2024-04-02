@@ -41,6 +41,10 @@ const profileAddCardModal = document.querySelector("#card-add-modal");
 const profileAddCardCloseButton = document.querySelector(
   "#close-add-card-modal"
 );
+const cardImageDisplay = document.querySelector("#photos-display-modal");
+const cardImageDisplayCloseButton = document.querySelector(
+  "#close-photo-display-modal"
+);
 
 //Elements used to display the current profile name and description in the edit profile modal
 const profileName = document.querySelector(".profile__name");
@@ -53,8 +57,10 @@ const profileFormElement = document.forms["profile-form"];
 const profileAddCardFormElement = document.forms["card-add-form"];
 
 //Elements used for photos templates
-const photoCardTemplate = document.querySelector("#photos-template").content;
 const photoCardList = document.querySelector(".photos__list");
+const photoCardTemplate = document
+  .querySelector("#photos-template")
+  .content.querySelector(".photos__card");
 
 //Elements used for adding cards
 const inputCardTitle = document.querySelector("#card-title");
@@ -68,6 +74,10 @@ profileEditCloseButton.addEventListener("click", closeEditProfileModal);
 //Event Listeners for opening and closing the add card modal
 profileAddCardButton.addEventListener("click", displayCardAddModal);
 profileAddCardCloseButton.addEventListener("click", closeCardAddModal);
+
+cardImageDisplayCloseButton.addEventListener("click", () => {
+  cardImageDisplay.classList.remove("modal_opened");
+});
 
 //Event Listener for submiting the edit profile modal
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
@@ -98,10 +108,8 @@ function createCard(data) {
   const cardImage = cardElement.querySelector(".photos__image");
   const cardLikeButton = cardElement.querySelector(".photos__like-button");
   const cardDeleteButton = cardElement.querySelector(".photos__delete-button");
-
-  cardDescription.textContent = data.name;
-  cardImage.src = data.link;
-  cardImage.alt = data.alt;
+  const cardImageDisplayLink = document.querySelector(".modal__photos-link");
+  const cardImageDisplayName = document.querySelector(".modal__photos-title");
 
   cardLikeButton.addEventListener("click", () => {
     cardLikeButton.classList.toggle("photos__like-button_active");
@@ -110,12 +118,24 @@ function createCard(data) {
     cardElement.remove();
   });
 
-  console.log("point 5");
+  cardDescription.textContent = data.name;
+  cardImage.src = data.link;
+  cardImage.alt = data.alt;
+
+  cardImage.addEventListener("click", () => {
+    console.log(data.name);
+    cardImageDisplayName.textContent = data.name;
+    cardImageDisplayLink.src = data.link;
+    cardImageDisplayLink.alt = data.alt;
+    cardImageDisplay.classList.add("modal_opened");
+  });
+
   return cardElement;
 }
 
 function getCardElement(data) {
   const cardElement = createCard(data);
+
   return cardElement;
   // photoCardList.append(cardElement);
 }
@@ -144,6 +164,8 @@ function handleCardFormSubmit(evt) {
   photoCardList.prepend(cardElement);
   console.log("point 3");
 }
+
+function openImageModal() {}
 
 // const cardLikeButtons = document.querySelectorAll(".photos__like-button");
 // console.log(cardLikeButtons);
