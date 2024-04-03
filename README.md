@@ -10,7 +10,7 @@ This is the third project of the Software Engineering program at TripleTen. It w
   
 **Intro**
   
-This project is to simulate a social media website, where users can share and like photos. The number of photos shown per row update as screen sizes change, going from a Desktop view down to a Mobile view.
+This project is to simulate a social media website, where users can share and like photos. The number of photos shown per row update as screen sizes change, going from a Desktop view down to a Mobile view. The user has the ability to like cards, add additional cards to their profile, update their profile name and description, and delete cards.
 
 ## Project features
 
@@ -23,10 +23,7 @@ This project is to simulate a social media website, where users can share and li
 
 ## Plan on improving the project
 
-Currently the buttons do not change anything when they are clicked. I want to update them so the "like" button will change colors, and the "add" button will allow for additional pictures to be added.
-There is no way to delete photos currently, which would be nice for users to be able to do.
-Additionally, photos should be able to be rearranged. I would like to add that functionality without needing to delete and reupload images.
-A possible update for users in the future would be to hide the "photo description" by clicking on the photo. Reclicking the photo could display the description again.
+I would like to update the code so that it will save when the page is refreshed. Currently there is only one profile and no way to search other profiles.
 
 ## Link to project and videos
 
