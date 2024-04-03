@@ -89,9 +89,12 @@
   opacity: 0.8;
 }
 
+.modal__photos-image-container {
+  position: relative;
+}
+
 .modal__photos-image-display {
   display: flex;
-  position: fixed;
   flex-direction: column;
   justify-content: center;
   align-items: center;
