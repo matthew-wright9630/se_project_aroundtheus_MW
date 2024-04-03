@@ -111,14 +111,19 @@
             />
             <label for="card-image-link" class="modal__label"></label>
             <input
-              type="text"
+              type="url"
               class="modal__input"
               id="card-image-link"
               name="cardImageLink"
               placeholder="Image Link"
+              required
             />
 
-            <button class="modal__submit-button" id="card-add-submit-button">
+            <button
+              class="modal__submit-button"
+              id="card-add-submit-button"
+              type="submit"
+            >
               Create
             </button>
           </fieldset>
@@ -144,6 +149,6 @@
         </div>
       </div>
     </div>
-    <script src="./scripts/index.js"></script>
+    <script src="./scripts/index.js" defer></script>
   </body>
 </html>

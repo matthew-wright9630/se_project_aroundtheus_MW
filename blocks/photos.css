@@ -21,6 +21,7 @@
   width: 100%;
   height: 78%;
   border-radius: 5% 5% 0 0;
+  cursor: pointer;
 }
 
 .photos__description {
