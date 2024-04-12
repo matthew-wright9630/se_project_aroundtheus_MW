@@ -2,14 +2,14 @@
 
 This is the third project of the Software Engineering program at TripleTen. It was created using HTML and CSS, based on the Figma design.
 
-### Overview  
+### Overview
 
-* Intro  
-* Figma  
-* Images  
-  
+- Intro
+- Figma
+- Images
+
 **Intro**
-  
+
 This project is to simulate a social media website, where users can share and like photos. The number of photos shown per row update as screen sizes change, going from a Desktop view down to a Mobile view. The user has the ability to like cards, add additional cards to their profile, update their profile name and description, and delete cards.
 
 ## Project features

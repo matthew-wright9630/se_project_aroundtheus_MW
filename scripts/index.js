@@ -95,31 +95,28 @@ profileAddCardFormElement.addEventListener("submit", handleCardFormSubmit);
 function openModal(modal) {
   modal.classList.add("modal_opened");
 
-  closeModalOnOverlayClick(modal);
-  closeModalOnEscapeKey(modal);
+  document.addEventListener("mousedown", closeModalOnOverlayClick);
+  document.addEventListener("keydown", closeModalOnEscapeKey);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("mousedown", closeModalOnOverlayClick);
+  document.removeEventListener("keydown", closeModalOnEscapeKey);
 }
 
-function closeModalOnOverlayClick(modal) {
-  modal.addEventListener("mousedown", (evt) => {
-    console.log("evt", evt);
-    if (evt.target.classList.contains("modal")) {
-      closeModal(modal);
-      modal.removeEventListener("mousedown", closeModalOnOverlayClick);
-    }
-  });
+function closeModalOnOverlayClick(evt) {
+  if (evt.target.classList.contains("modal")) {
+    const openedModal = document.querySelector(".modal_opened");
+    closeModal(openedModal);
+  }
 }
 
-function closeModalOnEscapeKey(modal) {
-  document.addEventListener("keydown", function (evt) {
-    if (evt.key === "Escape") {
-      console.log()
-      closeModal(modal);
-    }
-  });
+function closeModalOnEscapeKey(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    closeModal(openedModal);
+  }
 }
 
 function fillProfileInputFields() {
