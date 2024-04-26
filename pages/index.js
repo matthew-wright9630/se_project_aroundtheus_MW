@@ -1,35 +1,32 @@
 const initialCards = [
   {
     name: "Goat in a field",
-    alt: "Picture of a goat",
     link: "https://images.unsplash.com/photo-1506076177893-89d54794ef41?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     name: "Snowy landscape",
-    alt: "Picture of a snowy landscape",
     link: "https://images.unsplash.com/photo-1709403336601-c694b02d04ec?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     name: "Coastline ",
-    alt: "Picture of a Coastline",
     link: "https://images.unsplash.com/photo-1707343843982-f8275f3994c5?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     name: "Galaxy of stars",
-    alt: "Picture of stars",
     link: "https://images.unsplash.com/photo-1709403338527-8229912b3a67?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     name: "Mount Everest",
-    alt: "Picture of a Mount Everest",
     link: "https://images.unsplash.com/photo-1575819719798-83d97dd6949c?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     name: "School of fish",
-    alt: "Picture of fish under the sea",
     link: "https://images.unsplash.com/photo-1707327956851-30a531b70cda?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
+
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
 
 /* Elements */
 // Elements used to open and close the Edit Profile Modal and Card Add Modal
@@ -67,6 +64,22 @@ const photoCardTemplate = document
 //Elements used for adding cards
 const inputCardTitle = document.querySelector("#card-title");
 const inputCardLink = document.querySelector("#card-image-link");
+
+const validationConfig = {
+  formSelector: ".modal__container",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit-button",
+  inactiveButtonClass: "modal__submit-button_inactive",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error_active",
+  fieldsetSelector: ".modal__fieldset",
+};
+
+const profileAddCardFormValidator = new FormValidator(validationConfig, profileAddCardFormElement);
+const profileEditModalFormValidation = new FormValidator(validationConfig, profileFormElement);
+profileAddCardFormValidator.enableValidation();
+profileEditModalFormValidation.enableValidation();
+// profileAddCardFormValidator.enableValidation();
 
 /* Event Listeners */
 //Event Listeners for opening and closing the edit profile modal
@@ -136,7 +149,7 @@ function handleProfileFormSubmit(evt) {
   closeModal(profileEditModal);
 }
 
-function createCard(data) {
+/*function createCard(data) {
   const cardElement = photoCardTemplate.cloneNode(true);
   const cardDescription = cardElement.querySelector(".photos__caption");
   const cardImage = cardElement.querySelector(".photos__image");
@@ -164,12 +177,26 @@ function createCard(data) {
   });
 
   return cardElement;
-}
+} */
 
 initialCards.forEach((element) => {
-  const cardElement = createCard(element);
-  photoCardList.append(cardElement);
+  const cardElement = photoCardTemplate.cloneNode(true);
+  const card = new Card(element, cardElement, handleImageClick);
+  photoCardList.append(card.generateCard());
 });
+
+function handleImageClick({ name, link }) {
+  const cardImageDisplayLink = cardImageDisplay.querySelector(
+    ".modal__photos-link"
+  );
+  const cardImageDisplayName = cardImageDisplay.querySelector(
+    ".modal__photos-title"
+  );
+  cardImageDisplayName.textContent = name;
+  cardImageDisplayLink.src = link;
+  cardImageDisplayLink.alt = name;
+  openModal(cardImageDisplay);
+}
 
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
@@ -182,3 +209,16 @@ function handleCardFormSubmit(evt) {
   closeModal(profileAddCardModal);
   profileAddCardFormElement.reset();
 }
+
+// const formValidation = FormValidator();
+/*
+enableValidation({
+  formSelector: ".modal__container",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit-button",
+  inactiveButtonClass: "modal__submit-button_inactive",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error_active",
+  fieldsetSelector: ".modal__fieldset",
+}, );
+*/
