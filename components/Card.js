@@ -8,11 +8,6 @@ class Card {
   }
 
   generateCard() {
-    // console.log(this._cardSelector);
-    // this._cardElement = document
-    //   .querySelector(this._cardSelector)
-    //   .content.querySelector(".photos__card")
-    //   .cloneNode(true);
     this._setEventListeners();
 
     this._cardSelector.querySelector(".photos__caption").textContent =
