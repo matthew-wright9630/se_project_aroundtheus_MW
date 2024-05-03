@@ -98,7 +98,6 @@ profileEditButton.addEventListener("click", displayEditProfileModal);
 
 //Event Listeners for opening and closing the add card modal
 addCardButton.addEventListener("click", () => {
-  formValidators['card-add-form'].resetValidation();
   openModal(addCardModal);
 });
 
@@ -177,7 +176,7 @@ function handleCardFormSubmit(evt) {
   renderCard({link: inputCardLink.value, name: inputCardTitle.value});
   closeModal(addCardModal);
   addCardFormElement.reset();
-  formValidators['card-add-form'].resetValidation()
+  formValidators['card-add-form'].disableButton()
 }
 
 function renderCard(item, method = "prepend") {

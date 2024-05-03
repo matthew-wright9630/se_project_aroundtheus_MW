@@ -59,6 +59,10 @@ export class FormValidator {
     });
   }
 
+  disableButton() {
+    this._toggleButtonState();
+  }
+
   _setEventListeners() {
     this._inputList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector)

@@ -9,7 +9,7 @@ class Card {
 
   _getView() {
     this._cardElement = document
-      .querySelector("#photos-template")
+      .querySelector(this._cardSelector)
       .content.querySelector(".photos__card")
       .cloneNode(true);
     this._likeButton = this._cardElement.querySelector(".photos__like-button");
@@ -44,7 +44,7 @@ class Card {
     });
   }
 
-  _createCard() {
+  _setCardData() {
     this._cardElementName.textContent = this._cardName;
     this._cardElementImage.src = this._cardImage;
     this._cardElementImage.alt = this._cardName;
@@ -57,7 +57,7 @@ class Card {
   generateCard() {
     this._getView();
     this._setEventListeners();
-    this._createCard();
+    this._setCardData();
 
     return this._cardElement;
   }
