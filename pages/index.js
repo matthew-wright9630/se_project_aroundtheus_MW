@@ -176,7 +176,7 @@ function handleCardFormSubmit(evt) {
   renderCard({link: inputCardLink.value, name: inputCardTitle.value});
   closeModal(addCardModal);
   addCardFormElement.reset();
-  formValidators['card-add-form'].disableButton()
+  formValidators['card-add-form'].toggleButtonState();
 }
 
 function renderCard(item, method = "prepend") {
