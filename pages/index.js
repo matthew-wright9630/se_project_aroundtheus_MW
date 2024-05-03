@@ -98,6 +98,7 @@ profileEditButton.addEventListener("click", displayEditProfileModal);
 
 //Event Listeners for opening and closing the add card modal
 addCardButton.addEventListener("click", () => {
+  formValidators['card-add-form'].resetValidation();
   openModal(addCardModal);
 });
 
@@ -145,7 +146,6 @@ function fillProfileInputFields() {
 function displayEditProfileModal() {
   fillProfileInputFields();
   formValidators['profile-form'].resetValidation();
-  console.log("modal is opened and validation should be reset");
   openModal(profileEditModal);
 }
 
@@ -157,15 +157,12 @@ function handleProfileFormSubmit(evt) {
 }
 
 function createCard(element) {
-  // const cardElement = photoCardTemplate.cloneNode(true);
   const card = new Card(element, "#photos-template", handleImageClick);
   return card.generateCard();
 }
 
 initialCards.forEach((data) => {
   renderCard(data, "append");
-  // photoCardList.append(card);
-  // renderCard(card, "append");
 })
 
 function handleImageClick({ name, link }) {
@@ -178,8 +175,6 @@ function handleImageClick({ name, link }) {
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
   renderCard({link: inputCardLink.value, name: inputCardTitle.value});
-  // photoCardList.prepend(cardEl);
-  // renderCard(cardEl, "prepend");
   closeModal(addCardModal);
   addCardFormElement.reset();
   formValidators['card-add-form'].resetValidation()
