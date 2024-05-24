@@ -10,13 +10,12 @@
     />
     <meta name="author" content="Matthew Wright" />
     <meta name="keywords" content="social media, share, photos" />
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="page">
     <div class="page__content">
       <header class="header page__section">
         <img
-          src="./images/Logo.svg"
+          src="<%=require('./images/Logo.svg')%>"
           alt="Around The U.S."
           class="header__image"
         />
@@ -24,7 +23,7 @@
       <main>
         <section class="profile page__section">
           <img
-            src="./images/Avatar.png"
+            src="<%=require('./images/Avatar.png')%>"
             alt="Avatar"
             class="profile__picture"
           />
@@ -79,7 +78,7 @@
                 type="text"
                 class="modal__input"
                 id="profile-name"
-                name="profileName"
+                name="name"
                 placeholder="Name"
                 required
                 minlength="2"
@@ -92,7 +91,7 @@
                 type="text"
                 class="modal__input"
                 id="profile-description"
-                name="profileDescription"
+                name="about"
                 placeholder="Description"
                 required
                 minlength="2"
@@ -115,7 +114,7 @@
                 type="text"
                 class="modal__input"
                 id="card-title"
-                name="cardTitle"
+                name="name"
                 placeholder="Title"
                 required
                 maxlength="30"
@@ -127,7 +126,7 @@
                 type="url"
                 class="modal__input"
                 id="card-image-link"
-                name="cardImageLink"
+                name="link"
                 placeholder="Image Link"
                 required
               />
