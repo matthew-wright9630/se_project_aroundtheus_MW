@@ -9,27 +9,33 @@ export class PopupWithForm extends Popup {
       ".modal__submit-button"
     );
     this._popupForm = this._popupElement.querySelector(".modal__container");
+    this._popupArray = this._popupElement.querySelectorAll(".modal__input");
+    this._inputList = Array.from(this._popupArray);
+    // console.log(inputList);
   }
 
   _getInputValue() {
-    const inputList = Array.from(
-      this._popupElement.querySelectorAll(".modal__input")
-    );
     const inputValues = {};
-    inputList.forEach((input) => {
+    this._inputList.forEach((input) => {
       inputValues[input.name] = input.value;
     });
     return inputValues;
   }
 
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
+  }
+
   close() {
-    this._popupForm.reset();
     super.close();
   }
 
   setEventListeners() {
     this._submitButton.addEventListener("click", () => {
       this._handleFormSubmit(this._getInputValue());
+      this._popupForm.reset();
     });
 
     super.setEventListeners();

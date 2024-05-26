@@ -2,13 +2,8 @@ import {
   initialCards,
   profileEditButton,
   addCardButton,
-  inputProfileName,
-  inputProfileDescription,
   photoCardList,
-  inputCardTitle,
-  inputCardLink,
-  cardImageDisplayLink,
-  cardImageDisplayName,
+  validationConfig,
 } from "../utils/constants.js";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
@@ -18,6 +13,18 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
+
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item, method = "prepend") => {
+      const cardElement = createCard(item);
+      photoCardList[method](cardElement);
+    },
+  },
+  "#card-add-form"
+);
+cardSection.renderItems();
 
 const cardFormPopup = new PopupWithForm(
   "#card-add-modal",
@@ -32,20 +39,6 @@ const userProfileInformation = new UserInfo(
   ".profile__name",
   ".profile__description"
 );
-
-profileFormPopup.setEventListeners();
-cardFormPopup.setEventListeners();
-photoCardPopup.setEventListeners();
-
-const validationConfig = {
-  formSelector: ".modal__container",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__submit-button",
-  inactiveButtonClass: "modal__submit-button_inactive",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__input-error_active",
-  fieldsetSelector: ".modal__fieldset",
-};
 
 const formValidators = {};
 
@@ -65,13 +58,14 @@ enableValidation(validationConfig);
 /* Event Listeners */
 //Event Listeners for opening and closing the edit profile modal
 profileEditButton.addEventListener("click", () => {
-  ({ name: inputProfileName.value, about: inputProfileDescription.value } =
-    userProfileInformation.getUserInfo());
+  profileFormPopup.setEventListeners();
+  profileFormPopup.setInputValues(userProfileInformation.getUserInfo());
   profileFormPopup.open();
 });
 
 //Event Listeners for opening and closing the add card modal
 addCardButton.addEventListener("click", () => {
+  cardFormPopup.setEventListeners();
   cardFormPopup.open();
 });
 
@@ -86,33 +80,16 @@ function createCard(element) {
 }
 
 function handleImageClick({ name, link }) {
-  cardImageDisplayName.textContent = name;
-  cardImageDisplayLink.src = link;
-  cardImageDisplayLink.alt = name;
-
+  photoCardPopup.setEventListeners();
   photoCardPopup.open({ name, link });
 }
 
-function handleCardFormSubmit() {
-  renderCard({ link: inputCardLink.value, name: inputCardTitle.value });
+function handleCardFormSubmit(inputValues) {
+  renderCard(inputValues);
   cardFormPopup.close();
   formValidators["card-add-form"].toggleButtonState();
 }
 
 function renderCard(item, method = "prepend") {
-  const cardElement = createCard(item);
-  photoCardList[method](cardElement);
+  cardSection.addItem(item);
 }
-
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item, method = "prepend") => {
-      const cardElement = createCard(item);
-      photoCardList[method](cardElement);
-    },
-  },
-  "#card-add-form"
-);
-
-cardSection.renderItems();

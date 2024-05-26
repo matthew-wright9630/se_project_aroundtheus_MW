@@ -52,17 +52,24 @@ const cardImageDisplayName = cardImageDisplay.querySelector(
   ".modal__photos-title"
 );
 
+const validationConfig = {
+    formSelector: ".modal__container",
+    inputSelector: ".modal__input",
+    submitButtonSelector: ".modal__submit-button",
+    inactiveButtonClass: "modal__submit-button_inactive",
+    inputErrorClass: "modal__input_type_error",
+    errorClass: "modal__input-error_active",
+    fieldsetSelector: ".modal__fieldset",
+  };
+
 
 
 export {
   initialCards,
   profileEditButton,
   addCardButton,
-  inputProfileName,
-  inputProfileDescription,
   photoCardList,
-  inputCardTitle,
-  inputCardLink,
   cardImageDisplayLink,
   cardImageDisplayName,
+  validationConfig
 };
