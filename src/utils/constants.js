@@ -53,16 +53,14 @@ const cardImageDisplayName = cardImageDisplay.querySelector(
 );
 
 const validationConfig = {
-    formSelector: ".modal__container",
-    inputSelector: ".modal__input",
-    submitButtonSelector: ".modal__submit-button",
-    inactiveButtonClass: "modal__submit-button_inactive",
-    inputErrorClass: "modal__input_type_error",
-    errorClass: "modal__input-error_active",
-    fieldsetSelector: ".modal__fieldset",
-  };
-
-
+  formSelector: ".modal__container",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit-button",
+  inactiveButtonClass: "modal__submit-button_inactive",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error_active",
+  fieldsetSelector: ".modal__fieldset",
+};
 
 export {
   initialCards,
@@ -71,5 +69,5 @@ export {
   photoCardList,
   cardImageDisplayLink,
   cardImageDisplayName,
-  validationConfig
+  validationConfig,
 };
