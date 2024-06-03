@@ -11,6 +11,7 @@ export class PopupWithForm extends Popup {
     this._popupForm = this._popupElement.querySelector(".modal__container");
     this._popupArray = this._popupElement.querySelectorAll(".modal__input");
     this._inputList = Array.from(this._popupArray);
+    
   }
 
   _getInputValue() {
@@ -32,6 +33,7 @@ export class PopupWithForm extends Popup {
   }
 
   setEventListeners() {
+    console.log(this._popupElement);
     this._submitButton.addEventListener("click", () => {
       this._handleFormSubmit(this._getInputValue());
       this._popupForm.reset();

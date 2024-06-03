@@ -9,7 +9,6 @@ import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import "./index.css";
 import { Section } from "../components/Section.js";
-// import { Popup } from "../components/Popup.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
@@ -30,10 +29,14 @@ const cardFormPopup = new PopupWithForm(
   "#card-add-modal",
   handleCardFormSubmit
 );
+cardFormPopup.setEventListeners();
+
 const profileFormPopup = new PopupWithForm(
   "#profile-edit-modal",
   handleProfileFormSubmit
 );
+profileFormPopup.setEventListeners();
+
 const photoCardPopup = new PopupWithImage("#photos-display-modal");
 const userProfileInformation = new UserInfo(
   ".profile__name",
@@ -58,14 +61,13 @@ enableValidation(validationConfig);
 /* Event Listeners */
 //Event Listeners for opening and closing the edit profile modal
 profileEditButton.addEventListener("click", () => {
-  profileFormPopup.setEventListeners();
   profileFormPopup.setInputValues(userProfileInformation.getUserInfo());
   profileFormPopup.open();
 });
 
 //Event Listeners for opening and closing the add card modal
 addCardButton.addEventListener("click", () => {
-  cardFormPopup.setEventListeners();
+  
   cardFormPopup.open();
 });
 
@@ -85,6 +87,7 @@ function handleImageClick({ name, link }) {
 }
 
 function handleCardFormSubmit(inputValues) {
+  console.log(inputValues);
   renderCard(inputValues);
   cardFormPopup.close();
   formValidators["card-add-form"].toggleButtonState();

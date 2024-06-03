@@ -34,16 +34,9 @@ const addCardButton = document.querySelector(".profile__add-button");
 
 const cardImageDisplay = document.querySelector("#photos-display-modal");
 
-//Elements used to display the current profile name and description in the edit profile modal
-const inputProfileName = document.querySelector("#profile-name");
-const inputProfileDescription = document.querySelector("#profile-description");
-
 //Elements used for photos templates
 const photoCardList = document.querySelector(".photos__list");
 
-//Elements used for adding cards
-const inputCardTitle = document.querySelector("#card-title");
-const inputCardLink = document.querySelector("#card-image-link");
 
 const cardImageDisplayLink = cardImageDisplay.querySelector(
   ".modal__photos-link"
