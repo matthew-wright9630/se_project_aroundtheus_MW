@@ -28,13 +28,8 @@ export class PopupWithForm extends Popup {
     });
   }
 
-  close() {
-    super.close();
-  }
-
   setEventListeners() {
-    console.log(this._popupElement);
-    this._submitButton.addEventListener("click", () => {
+    this._popupForm.addEventListener("submit", () => {
       this._handleFormSubmit(this._getInputValue());
       this._popupForm.reset();
     });

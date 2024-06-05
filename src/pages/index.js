@@ -42,6 +42,7 @@ const userProfileInformation = new UserInfo(
   ".profile__name",
   ".profile__description"
 );
+photoCardPopup.setEventListeners();
 
 const formValidators = {};
 
@@ -82,12 +83,10 @@ function createCard(element) {
 }
 
 function handleImageClick({ name, link }) {
-  photoCardPopup.setEventListeners();
   photoCardPopup.open({ name, link });
 }
 
 function handleCardFormSubmit(inputValues) {
-  console.log(inputValues);
   renderCard(inputValues);
   cardFormPopup.close();
   formValidators["card-add-form"].toggleButtonState();
