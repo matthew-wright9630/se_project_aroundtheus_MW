@@ -64,12 +64,13 @@ enableValidation(validationConfig);
 profileEditButton.addEventListener("click", () => {
   profileFormPopup.setInputValues(userProfileInformation.getUserInfo());
   profileFormPopup.open();
+  formValidators["profile-form"].resetValidation();
 });
 
 //Event Listeners for opening and closing the add card modal
 addCardButton.addEventListener("click", () => {
-  
   cardFormPopup.open();
+  formValidators["card-add-form"].resetValidation();
 });
 
 function handleProfileFormSubmit(inputValues) {
@@ -89,7 +90,6 @@ function handleImageClick({ name, link }) {
 function handleCardFormSubmit(inputValues) {
   renderCard(inputValues);
   cardFormPopup.close();
-  formValidators["card-add-form"].toggleButtonState();
 }
 
 function renderCard(item, method = "prepend") {
