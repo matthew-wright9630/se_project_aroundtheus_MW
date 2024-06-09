@@ -11,7 +11,17 @@ import "./index.css";
 import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import { PopupWithDelete } from "../components/PopupWithDelete.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { Api } from "../components/Api.js";
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "b88b770f-9665-4862-bc7a-1a5aa8c4147a",
+    "Content-Type": "application/json",
+  },
+});
 
 const cardSection = new Section(
   {
@@ -38,11 +48,15 @@ const profileFormPopup = new PopupWithForm(
 profileFormPopup.setEventListeners();
 
 const photoCardPopup = new PopupWithImage("#photos-display-modal");
+
 const userProfileInformation = new UserInfo(
   ".profile__name",
   ".profile__description"
 );
 photoCardPopup.setEventListeners();
+
+// const deleteCardPopup = new PopupWithDelete("#card-delete-modal");
+// deleteCardPopup.setEventListeners();
 
 const formValidators = {};
 
@@ -73,25 +87,83 @@ addCardButton.addEventListener("click", () => {
   formValidators["card-add-form"].resetValidation();
 });
 
+// function handleProfileFormSubmit(inputValues) {
+//   userProfileInformation.setUserInfo(inputValues);
+//   profileFormPopup.close();
+// }
+
 function handleProfileFormSubmit(inputValues) {
-  userProfileInformation.setUserInfo(inputValues);
-  profileFormPopup.close();
-}
+  api.updateUserInformation(inputValues)
+    .then(result => {
+      return result.json();
+    })
+    .then(userInformation => {
+      userProfileInformation.setUserInfo(userInformation);
+    })
+    .catch(err => {
+      console.error(err);
+    })
+    .finally(profileFormPopup.close());
+ }
+
 
 function createCard(element) {
   const card = new Card(element, "#photos-template", handleImageClick);
   return card.generateCard();
 }
 
+// function createCard(element) {
+//   api.addCard(element)
+//     .then(newCard => {
+//       const card = new Card(newCard, "#photos-template", handleImageClick);
+//       return card.generateCard();
+//     })
+// }
+
 function handleImageClick({ name, link }) {
   photoCardPopup.open({ name, link });
 }
 
+function handleDeleteButtonClick() {
+
+}
+
+// function handleCardFormSubmit(inputValues) {
+//   renderCard(inputValues);
+//   cardFormPopup.close();
+// }
+
 function handleCardFormSubmit(inputValues) {
-  renderCard(inputValues);
-  cardFormPopup.close();
+  api.addCard(inputValues)
+    .then(result => result.json())
+    .then(newCard => {
+      renderCard(newCard);
+    })
+    .catch(err => {
+      console.error(err);
+    })
+    .finally(cardFormPopup.close());
 }
 
 function renderCard(item, method = "prepend") {
   cardSection.addItem(item);
 }
+
+api.getInitialCards()
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+api.getUser()
+  .then((result) => {
+    console.log(result);
+  })
+  .catch(err => {
+    console.error(err);
+  })
+
+  api.getUserInformation();
+
