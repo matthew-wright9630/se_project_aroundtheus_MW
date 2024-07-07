@@ -9,6 +9,7 @@ import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import "./index.css";
 import { Section } from "../components/Section.js";
+import { Popup } from "../components/Popup.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithDelete } from "../components/PopupWithDelete.js";
@@ -23,12 +24,26 @@ const api = new Api({
   },
 });
 
+const testItems = api
+  .getInitialCards()
+  .then((result) => {
+    return result;
+  })
+  .then(test => {
+    console.log("test", test);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+console.log(testItems, "test");
+
 const cardSection = new Section(
   {
     items: initialCards,
     renderer: (item, method = "prepend") => {
       const cardElement = createCard(item);
       photoCardList[method](cardElement);
+      console.log(photoCardList);
     },
   },
   "#card-add-form"
@@ -55,8 +70,11 @@ const userProfileInformation = new UserInfo(
 );
 photoCardPopup.setEventListeners();
 
-// const deleteCardPopup = new PopupWithDelete("#card-delete-modal");
-// deleteCardPopup.setEventListeners();
+const deleteCardPopup = new PopupWithDelete(
+  "#delete-card-modal",
+  handleCardDelete
+);
+deleteCardPopup.setEventListeners();
 
 const formValidators = {};
 
@@ -93,22 +111,27 @@ addCardButton.addEventListener("click", () => {
 // }
 
 function handleProfileFormSubmit(inputValues) {
-  api.updateUserInformation(inputValues)
-    .then(result => {
+  api
+    .updateUserInformation(inputValues)
+    .then((result) => {
       return result.json();
     })
-    .then(userInformation => {
+    .then((userInformation) => {
       userProfileInformation.setUserInfo(userInformation);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
     })
     .finally(profileFormPopup.close());
- }
-
+}
 
 function createCard(element) {
-  const card = new Card(element, "#photos-template", handleImageClick);
+  const card = new Card(
+    element,
+    "#photos-template",
+    handleImageClick,
+    handleDeleteBtnClick
+  );
   return card.generateCard();
 }
 
@@ -124,8 +147,8 @@ function handleImageClick({ name, link }) {
   photoCardPopup.open({ name, link });
 }
 
-function handleDeleteButtonClick() {
-
+function handleDeleteBtnClick() {
+  deleteCardPopup.open();
 }
 
 // function handleCardFormSubmit(inputValues) {
@@ -134,12 +157,13 @@ function handleDeleteButtonClick() {
 // }
 
 function handleCardFormSubmit(inputValues) {
-  api.addCard(inputValues)
-    .then(result => result.json())
-    .then(newCard => {
+  api
+    .addCard(inputValues)
+    .then((result) => result.json())
+    .then((newCard) => {
       renderCard(newCard);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
     })
     .finally(cardFormPopup.close());
@@ -149,7 +173,21 @@ function renderCard(item, method = "prepend") {
   cardSection.addItem(item);
 }
 
-api.getInitialCards()
+function handleCardDelete() {
+  // console.log(_id);
+}
+
+// api
+//   .getInitialCards()
+//   .then((result) => {
+//     return result
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
+
+api
+  .getUser()
   .then((result) => {
     console.log(result);
   })
@@ -157,13 +195,4 @@ api.getInitialCards()
     console.error(err);
   });
 
-api.getUser()
-  .then((result) => {
-    console.log(result);
-  })
-  .catch(err => {
-    console.error(err);
-  })
-
-  api.getUserInformation();
-
+api.getUserInformation();

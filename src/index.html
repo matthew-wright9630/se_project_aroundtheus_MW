@@ -161,10 +161,10 @@
         </div>
       </div>
       <div class="modal" id="delete-card-modal">
-        <div class="modal__delete-test">
-          <h2 class="modal__title">Are you sure?</h2>
+        <form class="modal__container modal__delete-container" id="card-delete-form" nonvalidate>
+          <h2 class="modal__title modal__delete-title">Are you sure?</h2>
           <button
-            class="modal__submit-button"
+            class="modal__submit-button modal__submit-delete"
             id="card-delete-submit-button"
             type="submit"
           >
@@ -175,7 +175,7 @@
             class="modal__close-button"
             type="button"
           ></button>
-        </div>
+        </form>
       </div>
     </div>
   </body>

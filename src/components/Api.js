@@ -1,13 +1,15 @@
 class Api {
   constructor(options) {
     this._options = options;
-    ({ baseUrl: this._baseUrl, headers: this._headers } = options);
+    // ({ baseUrl: this._baseUrl, headers: this._headers } = options);
+    this._baseUrl = options.baseUrl;
+    this._authToken = options.headers.authorization;
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
-        authorization: this._headers.authorization,
+        authorization: this._authToken,
       },
     }).then((res) => {
       if (res.ok) {
@@ -24,7 +26,7 @@ class Api {
   getUser() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: {
-        authorization: this._headers.authorization,
+        authorization: this._authToken,
       },
     }).then((res) => {
       if (res.ok) {
@@ -37,7 +39,10 @@ class Api {
   updateUserInformation(userInformation) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        authorization: this._authToken,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         name: userInformation.name,
         about: userInformation.about,
@@ -48,11 +53,24 @@ class Api {
   addCard(element) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        authorization: this._authToken,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         name: element.name,
         link: element.link,
       }),
+    });
+  }
+
+  deleteCard(card) {
+    return fetch(`${this._baseUrl}/cards/${card._id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._authToken,
+        "Content-Type": "application/json",
+      },
     });
   }
 }

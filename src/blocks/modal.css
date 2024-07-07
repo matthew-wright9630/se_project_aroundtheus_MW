@@ -150,6 +150,27 @@
   cursor: pointer;
 }
 
+.modal__delete-container {
+  width: 430px;
+  height: 181px;
+  /* position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 1);
+  margin: 0;
+  padding: 0;
+  border-radius: 10px; */
+}
+
+.modal__delete-title {
+  padding-bottom: 38px;
+}
+
+.modal__submit-delete {
+  margin: 0 36px;
+}
+
 @media screen and (max-width: 620px) {
   .modal__container {
     width: 282px;

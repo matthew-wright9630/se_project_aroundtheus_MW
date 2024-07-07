@@ -1,10 +1,11 @@
 class Card {
-  constructor(data, cardSelector, handleImageClick) {
+  constructor(data, cardSelector, handleImageClick, deleteButtonBtnClick) {
     this._cardName = data.name;
     this._cardImage = data.link;
     this._cardAlt = data.name;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
+    this._deleteButtonBtnClick = deleteButtonBtnClick;
   }
 
   _getView() {
@@ -21,27 +22,13 @@ class Card {
     this._cardElementImage = this._cardElement.querySelector(".photos__image");
   }
 
-  _handleDeleteCard() {
-    this._cardElement.remove();
-    this._cardElement = null;
-  }
+  // _handleDeleteCard() {
+  //   this._cardElement.remove();
+  //   this._cardElement = null;
+  // }
 
   _handleLikeCard() {
     this._likeButton.classList.toggle("photos__like-button_active");
-  }
-
-  _setEventListeners() {
-    this._likeButton.addEventListener("click", () => {
-      this._handleLikeCard();
-    });
-
-    this._deleteButton.addEventListener("click", () => {
-      this._handleDeleteCard();
-    });
-
-    this._cardImageButton.addEventListener("click", () => {
-      this._handleImageClick({ name: this._cardName, link: this._cardImage });
-    });
   }
 
   _setCardData() {
@@ -60,6 +47,21 @@ class Card {
     this._setCardData();
 
     return this._cardElement;
+  }
+
+  _setEventListeners() {
+    this._likeButton.addEventListener("click", () => {
+      this._handleLikeCard();
+    });
+
+    this._deleteButton.addEventListener("click", () => {
+      console.log(this._deleteButtonBtnClick);
+      this._deleteButtonBtnClick();
+    });
+
+    this._cardImageButton.addEventListener("click", () => {
+      this._handleImageClick({ name: this._cardName, link: this._cardImage });
+    });
   }
 }
 

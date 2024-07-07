@@ -1,15 +1,19 @@
 import { Popup } from "../components/Popup";
 
 export class PopupWithDelete extends Popup {
-  constructor(popupSelector) {
+  constructor(popupSelector, handleFormSubmit) {
     super(popupSelector);
+    this._handleFormSubmit = handleFormSubmit;
+    this._popupForm = this._popupElement.querySelector(".modal__container");
   }
 
-//   open({ name, link }) {
-//     this._imageTitle.textContent = name;
-//     this._imageLink.src = link;
-//     this._imageLink.alt = name;
+  setEventListeners() {
+    console.log("popupWithDelete");
+    this._popupForm.addEventListener("submit", () => {
+      console.log(this._handleFormSubmit, "form sumbit");
+      this._handleFormSubmit();
+    });
 
-//     super.open();
-//   }
+    super.setEventListeners();
+  }
 }
