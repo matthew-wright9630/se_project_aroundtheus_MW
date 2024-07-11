@@ -64,8 +64,29 @@ class Api {
     });
   }
 
-  deleteCard(card) {
-    return fetch(`${this._baseUrl}/cards/${card._id}`, {
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._authToken,
+        "Content-Type": "application/json",
+      },
+      "message": "This post has been deleted"
+    });
+  }
+
+  likeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: {
+        authorization: this._authToken,
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  dislikeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: {
         authorization: this._authToken,
@@ -73,6 +94,7 @@ class Api {
       },
     });
   }
+  
 }
 
 export { Api };
