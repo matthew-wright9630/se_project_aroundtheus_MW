@@ -71,11 +71,12 @@ class Api {
         authorization: this._authToken,
         "Content-Type": "application/json",
       },
-      "message": "This post has been deleted"
+      message: "This post has been deleted",
     });
   }
 
   likeCard(cardId) {
+    console.log(cardId, "likeCard function")
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: {
@@ -92,9 +93,21 @@ class Api {
         authorization: this._authToken,
         "Content-Type": "application/json",
       },
-    });
+    }).then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)));
   }
-  
+
+  udpateAvatar(data) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._authToken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar: data,
+      }),
+    }).then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)));
+  }
 }
 
 export { Api };

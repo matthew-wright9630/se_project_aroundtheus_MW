@@ -4,6 +4,7 @@ import {
   addCardButton,
   photoCardList,
   validationConfig,
+  avatarButton,
 } from "../utils/constants.js";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../components/FormValidator.js";
@@ -15,6 +16,10 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithDelete } from "../components/PopupWithDelete.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { Api } from "../components/Api.js";
+
+avatarButton.addEventListener("click", () => {
+  avatarUpdatePopup.open();
+});
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -51,6 +56,8 @@ api
     console.error(err);
   });
 
+// api.getUser()
+
 const cardFormPopup = new PopupWithForm(
   "#card-add-modal",
   handleCardFormSubmit
@@ -64,15 +71,22 @@ const profileFormPopup = new PopupWithForm(
 profileFormPopup.setEventListeners();
 
 const photoCardPopup = new PopupWithImage("#photos-display-modal");
+photoCardPopup.setEventListeners();
 
 const userProfileInformation = new UserInfo(
   ".profile__name",
-  ".profile__description"
+  ".profile__description",
+  ".profile__avatar-picture"
 );
-photoCardPopup.setEventListeners();
 
 const deleteCardPopup = new PopupWithForm("#delete-card-modal");
 deleteCardPopup.setEventListeners();
+
+const avatarUpdatePopup = new PopupWithForm(
+  "#avatar-update-modal",
+  handleAvatarUpdate
+);
+avatarUpdatePopup.setEventListeners();
 
 const formValidators = {};
 
@@ -104,23 +118,21 @@ addCardButton.addEventListener("click", () => {
 });
 
 function handleProfileFormSubmit(inputValues) {
-  // profileFormPopup.setSubmit(() => {
-    // profileFormPopup.setLoading(true);
-    api
-      .updateUserInformation(inputValues)
-      .then((result) => {
-        return result.json();
-      })
-      .then((userInformation) => {
-        userProfileInformation.setUserInfo(userInformation);
-        // profileFormPopup.close();
-        // profileFormPopup.setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(profileFormPopup.close());
-  // });
+  profileFormPopup.setLoading(true);
+  api
+    .updateUserInformation(inputValues)
+    .then((result) => {
+      return result.json();
+    })
+    .then((userInformation) => {
+      console.log(userInformation);
+      userProfileInformation.setUserInfo(userInformation);
+      profileFormPopup.setLoading(false);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(profileFormPopup.close());
 }
 
 function createCard(element) {
@@ -160,20 +172,19 @@ function handleImageClick({ name, link }) {
 }
 
 function handleCardFormSubmit(inputValues) {
-  // cardFormPopup.setSubmit(() => {
-  //   cardFormPopup.setLoading(true);
+    cardFormPopup.setLoading(true);
   console.log(inputValues);
   api
     .addCard(inputValues)
     .then((result) => result.json())
     .then((newCard) => {
       renderCard(newCard);
+      cardFormPopup.setLoading(false);
     })
     .catch((err) => {
       console.error(err);
     })
     .finally(cardFormPopup.close());
-  // });
 }
 
 function renderCard(item, method = "prepend") {
@@ -190,18 +201,16 @@ function handleCardDelete(card) {
       .then(() => {
         console.log(card, "Card deleted successfully");
         card.deleteCard();
-        deleteCardPopup.close();
         deleteCardPopup.setLoading(false);
       })
       .catch((error) => {
         console.error("Error in deleting card:", error);
-      });
+      })
+      .finally(deleteCardPopup.close());
   });
 }
 
 function handleLikeCard(card) {
-  console.log("====");
-  console.log(card);
   const cardId = card.getCardId();
   const cardLiked = card.getCardIsLiked();
   console.log(cardLiked, "like status");
@@ -228,10 +237,22 @@ function handleLikeCard(card) {
   }
 }
 
+function handleAvatarUpdate({ name: inputValue }) {
+  api
+    .udpateAvatar(inputValue)
+    .then(() => {
+      userProfileInformation.setUserAvatar(inputValue);
+    })
+    .catch((error) => {
+      console.error("Error in updating avatar: ", error);
+    })
+    .finally(avatarUpdatePopup.close());
+}
+
 api
   .getUser()
-  .then((result) => {
-    console.log(result);
+  .then((res) => {
+    userProfileInformation.setUserInfo(res);
   })
   .catch((err) => {
     console.error(err);

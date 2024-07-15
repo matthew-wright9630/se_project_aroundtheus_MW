@@ -41,9 +41,12 @@ const photoCardList = document.querySelector(".photos__list");
 const cardImageDisplayLink = cardImageDisplay.querySelector(
   ".modal__photos-link"
 );
+
 const cardImageDisplayName = cardImageDisplay.querySelector(
   ".modal__photos-title"
 );
+
+const avatarButton = document.querySelector(".profile__avatar-btn");
 
 const validationConfig = {
   formSelector: ".modal__container",
@@ -63,4 +66,5 @@ export {
   cardImageDisplayLink,
   cardImageDisplayName,
   validationConfig,
+  avatarButton
 };
