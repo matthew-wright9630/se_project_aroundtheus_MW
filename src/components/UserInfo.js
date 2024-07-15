@@ -19,14 +19,17 @@ export class UserInfo {
     };
   }
 
-  setUserInfo({ name: profileName, about: profileDescription, avatar: profileAvatar }) {
+  setUserInfo({
+    name: profileName,
+    about: profileDescription,
+    avatar: profileAvatar,
+  }) {
     this._profileName.textContent = profileName;
     this._profileDescription.textContent = profileDescription;
     this._profileAvatar.src = profileAvatar;
   }
 
   setUserAvatar(profileAvatar) {
-    console.log("avatar should be set", this._profileAvatar);
     this._profileAvatar.src = profileAvatar;
   }
 }

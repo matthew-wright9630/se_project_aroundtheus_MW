@@ -1,7 +1,6 @@
 class Api {
   constructor(options) {
     this._options = options;
-    // ({ baseUrl: this._baseUrl, headers: this._headers } = options);
     this._baseUrl = options.baseUrl;
     this._authToken = options.headers.authorization;
   }
@@ -76,7 +75,6 @@ class Api {
   }
 
   likeCard(cardId) {
-    console.log(cardId, "likeCard function")
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: {

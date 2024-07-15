@@ -32,12 +32,11 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 26px;
-  /* height: 26px; */
   transition: opacity 0.3s;
 }
 
 .profile__avatar-btn:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .profile__info {

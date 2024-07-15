@@ -22,13 +22,13 @@ export class Popup {
     if (evt.target.classList.contains("modal_opened")) {
       this.close();
     }
-  }
+  };
 
   _closeOnEscKey = (evt) => {
     if (evt.key === "Escape") {
       this.close();
     }
-  }
+  };
 
   setEventListeners() {
     this._closeButton.addEventListener("click", () => {

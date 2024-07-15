@@ -13,7 +13,6 @@ import { Section } from "../components/Section.js";
 import { Popup } from "../components/Popup.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
-import { PopupWithDelete } from "../components/PopupWithDelete.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { Api } from "../components/Api.js";
 
@@ -35,13 +34,12 @@ const cardSection = new Section(
     renderer: (item, method = "prepend") => {
       const cardElement = createCard(item);
       photoCardList[method](cardElement);
-      // console.log(photoCardList);
     },
   },
   "#card-add-form"
 );
-// cardSection.renderItems();
 
+//Getting the list of cards from the server and displaying it on the form
 api
   .getInitialCards()
   .then((result) => {
@@ -56,8 +54,7 @@ api
     console.error(err);
   });
 
-// api.getUser()
-
+// Class assignment for all popups
 const cardFormPopup = new PopupWithForm(
   "#card-add-modal",
   handleCardFormSubmit
@@ -88,6 +85,7 @@ const avatarUpdatePopup = new PopupWithForm(
 );
 avatarUpdatePopup.setEventListeners();
 
+//Form validators
 const formValidators = {};
 
 const enableValidation = (config) => {
@@ -117,6 +115,7 @@ addCardButton.addEventListener("click", () => {
   formValidators["card-add-form"].resetValidation();
 });
 
+//Updating profile information
 function handleProfileFormSubmit(inputValues) {
   profileFormPopup.setLoading(true);
   api
@@ -125,7 +124,6 @@ function handleProfileFormSubmit(inputValues) {
       return result.json();
     })
     .then((userInformation) => {
-      console.log(userInformation);
       userProfileInformation.setUserInfo(userInformation);
       profileFormPopup.setLoading(false);
     })
@@ -146,34 +144,13 @@ function createCard(element) {
   return card.generateCard();
 }
 
-// function createCard(element) {
-//   api.addCard(element)
-//     .then(result => {
-//       // console.log(result);
-//       return result;
-//     })
-//     .then(res => {
-//       const card = new Card(
-//             res,
-//             "#photos-template",
-//             handleImageClick,
-//             handleDeleteBtnClick
-//           );
-//           console.log(card);
-//           return card.generateCard();
-//     })
-//     .catch(err => {
-//       console.error(err);
-//     })
-// }
-
 function handleImageClick({ name, link }) {
   photoCardPopup.open({ name, link });
 }
 
+// Submitting a new card to the server
 function handleCardFormSubmit(inputValues) {
-    cardFormPopup.setLoading(true);
-  console.log(inputValues);
+  cardFormPopup.setLoading(true);
   api
     .addCard(inputValues)
     .then((result) => result.json())
@@ -191,6 +168,7 @@ function renderCard(item, method = "prepend") {
   cardSection.addItem(item);
 }
 
+//Delete card
 function handleCardDelete(card) {
   const cardId = card.getCardId();
   deleteCardPopup.open();
@@ -199,7 +177,6 @@ function handleCardDelete(card) {
     api
       .deleteCard(cardId)
       .then(() => {
-        console.log(card, "Card deleted successfully");
         card.deleteCard();
         deleteCardPopup.setLoading(false);
       })
@@ -210,15 +187,14 @@ function handleCardDelete(card) {
   });
 }
 
+//handles both like and dislike of cards
 function handleLikeCard(card) {
   const cardId = card.getCardId();
   const cardLiked = card.getCardIsLiked();
-  console.log(cardLiked, "like status");
   if (cardLiked == false) {
     api
       .likeCard(cardId)
       .then(() => {
-        console.log("card is liked");
         card.likeCard();
       })
       .catch((error) => {
@@ -228,7 +204,6 @@ function handleLikeCard(card) {
     api
       .dislikeCard(cardId)
       .then(() => {
-        console.log("card is disliked");
         card.dislikeCard();
       })
       .catch((error) => {
@@ -237,6 +212,7 @@ function handleLikeCard(card) {
   }
 }
 
+//updating the avatar
 function handleAvatarUpdate({ name: inputValue }) {
   api
     .udpateAvatar(inputValue)
@@ -249,6 +225,7 @@ function handleAvatarUpdate({ name: inputValue }) {
     .finally(avatarUpdatePopup.close());
 }
 
+// Get user data from the server
 api
   .getUser()
   .then((res) => {
