@@ -1,21 +1,24 @@
 class Api {
   constructor(options) {
-    this._options = options;
+    this._headers = options.headers;
     this._baseUrl = options.baseUrl;
     this._authToken = options.headers.authorization;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  }
+
+  _request(url, options) {
+    console.log(url);
+    return fetch(url, options).then(this._checkResponse);
+  }
+
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: {
-        authorization: this._authToken,
-      },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    return this._request(`${this._baseUrl}/cards`, { headers: this._headers });
   }
 
   getUserInformation() {
@@ -23,25 +26,15 @@ class Api {
   }
 
   getUser() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: {
-        authorization: this._authToken,
-      },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+    return this._request(`${this._baseUrl}/users/me`, {
+      headers: this._headers,
     });
   }
 
   updateUserInformation(userInformation) {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._request(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: {
-        authorization: this._authToken,
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: userInformation.name,
         about: userInformation.about,
@@ -50,12 +43,9 @@ class Api {
   }
 
   addCard(element) {
-    return fetch(`${this._baseUrl}/cards`, {
+    return this._request(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: {
-        authorization: this._authToken,
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: element.name,
         link: element.link,
@@ -64,47 +54,35 @@ class Api {
   }
 
   deleteCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+    return this._request(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: {
-        authorization: this._authToken,
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       message: "This post has been deleted",
     });
   }
 
   likeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
-      headers: {
-        authorization: this._authToken,
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
     });
   }
 
   dislikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
-      headers: {
-        authorization: this._authToken,
-        "Content-Type": "application/json",
-      },
-    }).then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)));
+      headers: this._headers,
+    });
   }
 
   udpateAvatar(data) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+    return this._request(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: {
-        authorization: this._authToken,
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       body: JSON.stringify({
         avatar: data,
       }),
-    }).then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)));
+    });
   }
 }
 

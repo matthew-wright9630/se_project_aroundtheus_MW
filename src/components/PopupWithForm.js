@@ -22,10 +22,13 @@ export class PopupWithForm extends Popup {
     return inputValues;
   }
 
-  setLoading(isLoading) {
+  renderLoading(isLoading) {
+    console.log(isLoading);
     if (isLoading) {
+      console.log("button should update");
       this._submitButton.textContent = "Saving...";
     } else {
+      console.log(this._originalSubmitText);
       this._submitButton.textContent = this._originalSubmitText;
     }
   }
@@ -43,7 +46,6 @@ export class PopupWithForm extends Popup {
   setEventListeners() {
     this._popupForm.addEventListener("submit", () => {
       this._handleFormSubmit(this._getInputValue());
-      this._popupForm.reset();
     });
 
     super.setEventListeners();

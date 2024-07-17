@@ -16,10 +16,6 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { Api } from "../components/Api.js";
 
-avatarButton.addEventListener("click", () => {
-  avatarUpdatePopup.open();
-});
-
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -42,12 +38,10 @@ const cardSection = new Section(
 //Getting the list of cards from the server and displaying it on the form
 api
   .getInitialCards()
-  .then((result) => {
-    return result;
-  })
   .then((res) => {
     res.forEach((result) => {
       renderCard(result);
+      // cardSection.renderItems(result);
     });
   })
   .catch((err) => {
@@ -115,22 +109,23 @@ addCardButton.addEventListener("click", () => {
   formValidators["card-add-form"].resetValidation();
 });
 
+//Event Listeners for the Avatar Update modal
+avatarButton.addEventListener("click", () => {
+  avatarUpdatePopup.open();
+  formValidators["avatar-update-form"].resetValidation();
+});
+
 //Updating profile information
 function handleProfileFormSubmit(inputValues) {
-  profileFormPopup.setLoading(true);
+  profileFormPopup.renderLoading(true);
   api
     .updateUserInformation(inputValues)
-    .then((result) => {
-      return result.json();
-    })
     .then((userInformation) => {
       userProfileInformation.setUserInfo(userInformation);
-      profileFormPopup.setLoading(false);
+      profileFormPopup.close();
     })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(profileFormPopup.close());
+    .catch(console.error)
+    .finally(profileFormPopup.renderLoading(false));
 }
 
 function createCard(element) {
@@ -150,18 +145,16 @@ function handleImageClick({ name, link }) {
 
 // Submitting a new card to the server
 function handleCardFormSubmit(inputValues) {
-  cardFormPopup.setLoading(true);
+  cardFormPopup.renderLoading(true);
   api
     .addCard(inputValues)
-    .then((result) => result.json())
     .then((newCard) => {
       renderCard(newCard);
-      cardFormPopup.setLoading(false);
+      cardFormPopup.close();
+      ;
     })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(cardFormPopup.close());
+    .catch(console.error)
+    .finally(cardFormPopup.renderLoading);
 }
 
 function renderCard(item, method = "prepend") {
@@ -173,17 +166,15 @@ function handleCardDelete(card) {
   const cardId = card.getCardId();
   deleteCardPopup.open();
   deleteCardPopup.setSubmit(() => {
-    deleteCardPopup.setLoading(true);
+    deleteCardPopup.renderLoading(true);
     api
       .deleteCard(cardId)
       .then(() => {
         card.deleteCard();
-        deleteCardPopup.setLoading(false);
+        deleteCardPopup.close();
       })
-      .catch((error) => {
-        console.error("Error in deleting card:", error);
-      })
-      .finally(deleteCardPopup.close());
+      .catch(console.error)
+      .finally(deleteCardPopup.renderLoading(false));
   });
 }
 
@@ -197,32 +188,28 @@ function handleLikeCard(card) {
       .then(() => {
         card.likeCard();
       })
-      .catch((error) => {
-        console.error("Error in liking card:", error);
-      });
+      .catch(console.error);
   } else {
     api
       .dislikeCard(cardId)
       .then(() => {
         card.dislikeCard();
       })
-      .catch((error) => {
-        console.error("Error in disliking card: ", error);
-      });
+      .catch(console.error);
   }
 }
 
 //updating the avatar
 function handleAvatarUpdate({ name: inputValue }) {
+  avatarUpdatePopup.renderLoading(true);
   api
     .udpateAvatar(inputValue)
     .then(() => {
       userProfileInformation.setUserAvatar(inputValue);
+      avatarUpdatePopup.close();
     })
-    .catch((error) => {
-      console.error("Error in updating avatar: ", error);
-    })
-    .finally(avatarUpdatePopup.close());
+    .catch(console.error)
+    .finally(avatarUpdatePopup.renderLoading(false));
 }
 
 // Get user data from the server
@@ -231,8 +218,4 @@ api
   .then((res) => {
     userProfileInformation.setUserInfo(res);
   })
-  .catch((err) => {
-    console.error(err);
-  });
-
-api.getUserInformation();
+  .catch(console.error);
