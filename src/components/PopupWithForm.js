@@ -23,18 +23,19 @@ export class PopupWithForm extends Popup {
   }
 
   renderLoading(isLoading) {
-    console.log(isLoading);
     if (isLoading) {
-      console.log("button should update");
       this._submitButton.textContent = "Saving...";
     } else {
-      console.log(this._originalSubmitText);
       this._submitButton.textContent = this._originalSubmitText;
     }
   }
 
   setSubmit(handleSubmit) {
     this._handleFormSubmit = handleSubmit;
+  }
+
+  reset() {
+    this._popupForm.reset();
   }
 
   setInputValues(data) {

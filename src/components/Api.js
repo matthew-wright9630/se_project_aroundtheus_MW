@@ -13,7 +13,6 @@ class Api {
   }
 
   _request(url, options) {
-    console.log(url);
     return fetch(url, options).then(this._checkResponse);
   }
 

@@ -40,8 +40,7 @@ api
   .getInitialCards()
   .then((res) => {
     res.forEach((result) => {
-      renderCard(result);
-      // cardSection.renderItems(result);
+      cardSection.addItem(result);
     });
   })
   .catch((err) => {
@@ -123,9 +122,12 @@ function handleProfileFormSubmit(inputValues) {
     .then((userInformation) => {
       userProfileInformation.setUserInfo(userInformation);
       profileFormPopup.close();
+      profileFormPopup.reset();
     })
     .catch(console.error)
-    .finally(profileFormPopup.renderLoading(false));
+    .finally(() => {
+      profileFormPopup.renderLoading(false);
+    });
 }
 
 function createCard(element) {
@@ -151,10 +153,12 @@ function handleCardFormSubmit(inputValues) {
     .then((newCard) => {
       renderCard(newCard);
       cardFormPopup.close();
-      ;
+      cardFormPopup.reset();
     })
     .catch(console.error)
-    .finally(cardFormPopup.renderLoading);
+    .finally(() => {
+      cardFormPopup.renderLoading(false);
+    });
 }
 
 function renderCard(item, method = "prepend") {
@@ -174,7 +178,9 @@ function handleCardDelete(card) {
         deleteCardPopup.close();
       })
       .catch(console.error)
-      .finally(deleteCardPopup.renderLoading(false));
+      .finally(() => {
+        deleteCardPopup.renderLoading(false);
+      });
   });
 }
 
@@ -207,9 +213,12 @@ function handleAvatarUpdate({ name: inputValue }) {
     .then(() => {
       userProfileInformation.setUserAvatar(inputValue);
       avatarUpdatePopup.close();
+      avatarUpdatePopup.reset();
     })
     .catch(console.error)
-    .finally(avatarUpdatePopup.renderLoading(false));
+    .finally(() => {
+      avatarUpdatePopup.renderLoading(false);
+    });
 }
 
 // Get user data from the server

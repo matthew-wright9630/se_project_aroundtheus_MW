@@ -16,14 +16,14 @@
 }
 
 .modal__container {
+  padding: 34px 36px 36px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: rgba(255, 255, 255, 1);
-  width: 358px;
+  width: calc(358px - (36px * 2));
   margin: 0;
-  padding: 34px 36px 36px;
   border-radius: 10px;
 }
 
@@ -151,7 +151,7 @@
 
 @media screen and (max-width: 620px) {
   .modal__container {
-    width: 282px;
+    width: calc(282px - (36px * 2));
   }
 
   .modal__title {
