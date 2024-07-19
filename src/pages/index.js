@@ -26,7 +26,6 @@ const api = new Api({
 
 const cardSection = new Section(
   {
-    items: initialCards,
     renderer: (item, method = "prepend") => {
       const cardElement = createCard(item);
       photoCardList[method](cardElement);
@@ -39,9 +38,8 @@ const cardSection = new Section(
 api
   .getInitialCards()
   .then((res) => {
-    res.forEach((result) => {
-      cardSection.addItem(result);
-    });
+    cardSection.renderItems(res);
+    res.forEach((result) => {});
   })
   .catch((err) => {
     console.error(err);
@@ -136,7 +134,8 @@ function createCard(element) {
     "#photos-template",
     handleImageClick,
     handleCardDelete,
-    handleLikeCard
+    handleLikeCard,
+    false
   );
   return card.generateCard();
 }
@@ -192,14 +191,14 @@ function handleLikeCard(card) {
     api
       .likeCard(cardId)
       .then(() => {
-        card.likeCard();
+        card.updateCardLike();
       })
       .catch(console.error);
   } else {
     api
       .dislikeCard(cardId)
       .then(() => {
-        card.dislikeCard();
+        card.updateCardLike();
       })
       .catch(console.error);
   }

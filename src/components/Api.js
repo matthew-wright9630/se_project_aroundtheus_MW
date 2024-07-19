@@ -61,6 +61,7 @@ class Api {
   }
 
   likeCard(cardId) {
+    console.log("card is liked");
     return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
@@ -68,6 +69,7 @@ class Api {
   }
 
   dislikeCard(cardId) {
+    console.log("card is disliked");
     return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
