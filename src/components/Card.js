@@ -30,7 +30,9 @@ class Card {
     this._cardElementName = this._cardElement.querySelector(".photos__caption");
     this._cardElementImage = this._cardElement.querySelector(".photos__image");
 
-    this.updateCardLike();
+    if (this._isLiked === true) {
+      this._likeCard();
+    }
   }
 
   _setCardData() {
@@ -75,7 +77,7 @@ class Card {
   }
 
   updateCardLike() {
-    if (this._isLiked === true) {
+    if (this._isLiked === false) {
       this._likeCard();
     } else {
       this._dislikeCard();
